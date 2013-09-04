@@ -1,4 +1,4 @@
-# -*- sh -*-
+# -*- mode: sh; indent-tabs-mode: nil -*-
 
 # パスの設定
 ## 重複したパスを登録しない。
@@ -48,9 +48,13 @@ typeset -U sudo_path
 ##            /: ディレクトリのみ残す。
 sudo_path=({,/usr/pkg,/usr/local,/usr}/sbin(N-/))
 
-# rootの場合はsudo用のパスもPATHに加える。
 if [ $(id -u) -eq 0 ]; then
+    # rootの場合はsudo用のパスもPATHに加える。
     path=($sudo_path $path)
+else
+    # 一般ユーザーの場合はsudo時にsudo用のパスをPATHに加える。
+    # alias sudo="sudo env PATH=\"$SUDO_PATH:$PATH\""
+    :
 fi
 
 # man用パスの設定
@@ -152,12 +156,12 @@ export GREP_OPTIONS
 GREP_OPTIONS="--binary-files=without-match"
 case "$grep_version" in
     1.*|2.[0-4].*|2.5.[0-3])
-	;;
+        ;;
     *)
-	### grep 2.5.4以降のみの設定
+        ### grep 2.5.4以降のみの設定
         ### grep対象としてディレクトリを指定したらディレクトリ内を再帰的にgrepする。
-	GREP_OPTIONS="--directories=recurse $GREP_OPTIONS"
-	;;
+        GREP_OPTIONS="--directories=recurse $GREP_OPTIONS"
+        ;;
 esac
 ### 拡張子が.tmpのファイルは無視する。
 GREP_OPTIONS="--exclude=\*.tmp $GREP_OPTIONS"
@@ -202,3 +206,19 @@ for email_file in ${email_files}; do
     export EMAIL=$(cat "$email_file")
     break
 done
+
+# VTEの設定
+## 2013-07-14
+## gnome-terminal 2.32以降で新しいタブを開いたときに
+## カレントディレクトリーが前のタブと同じにならない問題への対応
+## 参考: https://bugzilla.gnome.org/show_bug.cgi?id=697475
+##
+## ディレクトリーが変わる毎に
+## OSC (Operating System Command)エスケープシーケンスを送って
+## 現在のディレクトリー情報を更新する必要があるらしい。
+## 具体的には以下のエスケープシーケンス。\eがEscで\aがBEL。
+## "\e7;"と"\a"の間に現在のディレクトリーをURI形式で入れる。
+##   "\e7;file:///${PWD}\a"
+## これを実行するシェルスクリプトが/etc/profile.d/vte.shに
+## インストールされているので、あったら読み込む。
+[ -f /etc/profile.d/vte.sh ] && . /etc/profile.d/vte.sh
