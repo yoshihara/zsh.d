@@ -393,7 +393,7 @@ update_title() {
 
     print -n -P "\e]2;"
     echo -n "(${command})"
-    echo -n "(${$(cat ~/.rbenv/version)%-*})"
+    echo -n "(${$(rbenv global)%-*})"
     print -n -P " %n@%m:%~\a"
 }
 ## X環境上でだけウィンドウタイトルを変える。
