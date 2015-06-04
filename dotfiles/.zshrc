@@ -2,6 +2,9 @@ source ~/.zsh.d/zshrc
 export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/versions:$PATH"
 export PATH="/usr/local/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
+export PATH="/sbin:$PATH"
+export PATH="/bin:$PATH"
+
 export PGDATA="/usr/local/var/postgres"
 
 # export CC="/usr/bin/gcc-4.2"
@@ -142,3 +145,9 @@ if which growlnotify >/dev/null 2>&1 ||
     add-zsh-hook preexec __my_preexec_start_timetrack
     add-zsh-hook precmd __my_preexec_end_timetrack
 fi
+
+[ -s "/Users/yoshihara/.nvm/nvm.sh" ] && . "/Users/yoshihara/.nvm/nvm.sh" # This loads nvm
+
+source ~/.listies_env
+export NODE_PATH=/Users/yoshihara/.nvm/v0.11.12/lib/node_modules::/usr/local/lib/node_modules
+export PATH="$HOME/.embulk/bin:$PATH"

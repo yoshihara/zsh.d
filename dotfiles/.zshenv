@@ -8,6 +8,9 @@ export PATH="$PATH:/usr/sbin"
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/org/bin:$PATH"
 export PATH="$PATH:/usr/local/bin"
+export PATH="$PATH:/usr/local/go/bin"
+
+export PGDATA=/usr/local/var/postgres
 
 export LC_ALL=ja_JP.UTF-8
 
