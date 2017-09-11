@@ -140,8 +140,9 @@ fi
 
 # lessの設定
 ## -R: ANSIエスケープシーケンスのみ素通しする。
-## 2012-09-04
-export LESS="-R"
+## --shift 4: 左右カーソルでの横スクロールを4文字単位にする。
+## --LONG-PROMPT: 現在の表示範囲を下端に示す
+export LESS="-R --shift 4 --LONG-PROMPT"
 
 # grepの設定
 ## grepのバージョンを検出。
