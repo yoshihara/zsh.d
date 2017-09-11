@@ -350,6 +350,12 @@ case $(uname) in
         ;;
 esac
 
+## copy/paste
+if [ $(uname) = "Linux" ]; then
+    alias pbcopy="xsel --input --clipboard"
+    alias pbpaste="xsel --output --clipboard"
+fi
+
 ## Emacsのショートカット。
 ### 2011-11-06
 alias e="emacs &"
