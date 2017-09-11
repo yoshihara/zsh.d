@@ -175,12 +175,8 @@ if type gsed > /dev/null 2>&1; then
 fi
 
 # エディタの設定
-## vimを使う。
-export EDITOR=vim
-## vimがなくてもvimでviを起動する。
-if ! type vim > /dev/null 2>&1; then
-    alias vim=vi
-fi
+## viを使う。
+export EDITOR=vi
 
 # メールアドレスの設定
 ## ~/.zsh.d/email → ~/.emailの順に探して最初に見つかったファイルから読み込む。
