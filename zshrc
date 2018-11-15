@@ -354,56 +354,5 @@ if [ $(uname) = "Linux" ]; then
     alias pbpaste="xsel --output --clipboard"
 fi
 
-## Emacsのショートカット。
-### 2011-11-06
-alias e="emacs &"
-### -nw: ターミナル内でEmacsを起動する。
-### 2011-11-06
-alias enw="emacs -nw"
-
-## exitのショートカット。
-### 2011-11-06
-alias x="exit"
-
-## カスタムaliasの設定
-### ~/.zsh.d/zshalias → ~/.zshaliasの順に探して
-### 最初に見つかったファイルを読み込む。
-### (N-.): 存在しないファイルは登録しない。
-###    パス(...): ...という条件にマッチするパスのみ残す。
-###            N: NULL_GLOBオプションを設定。
-###               globがマッチしなかったり存在しないパスを無視する。
-###            -: シンボリックリンク先のパスを評価。
-###            .: 通常のファイルのみ残す。
-### 2011-11-06
-alais_files=(~/.zsh.d/zshalias(N-.)
-             ~/.zshalias(N-.))
-for alias_file in ${alias_files}; do
-    source "${alias_file}"
-    break
-done
-
-# ウィンドウタイトル
-## 実行中のコマンドとユーザ名とホスト名とカレントディレクトリを表示。
-update_title() {
-    local command_line=
-    typeset -a command_line
-    command_line=${(z)2}
-    local command=
-    if [ ${(t)command_line} = "array-local" ]; then
-        command="$command_line[1]"
-    else
-        command="$2"
-    fi
-
-    print -n -P "\e]2;"
-    echo -n "(${command})"
-    echo -n "(${$(rbenv global)%-*})"
-    print -n -P " %n@%m:%~\a"
-}
-## X環境上でだけウィンドウタイトルを変える。
-if [ -n "$DISPLAY" ]; then
-    preexec_functions=($preexec_functions update_title)
-fi
-
 ## ghq & pecoで便利に移動するためのエイリアス
 alias gcd='cd $(ghq root)/$(ghq list | peco)'
