@@ -17,8 +17,6 @@ alias re="rbenv exec"
 alias reg="rbenv global"
 alias rel="rbenv local"
 alias be="bundle exec"
-alias t="todo.sh"
-alias e="/Applications/Emacs.app/Contents/MacOS/Emacs"
 
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
