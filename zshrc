@@ -356,3 +356,7 @@ fi
 
 ## ghq & pecoで便利に移動するためのエイリアス
 alias gcd='cd $(ghq root)/$(ghq list | peco)'
+
+## *envのセットアップ
+eval "$(rbenv init -)"
+eval "$(nodenv init -)"
